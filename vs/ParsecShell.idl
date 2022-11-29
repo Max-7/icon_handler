@@ -1,0 +1,36 @@
+// ParsecShell.idl : IDL source for ParsecShell
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (ParsecShell.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(b9f5abdd-dca5-4b0f-955d-b6ac57cb5d77),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IIconHandler : IDispatch
+{
+};
+[
+	uuid(889a8069-3eb0-4a64-b297-282e95b70bf2),
+	version(1.0),
+]
+library ParsecShellLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(c5488187-2b77-40c7-bb6a-4f0a0ca979d6)
+	]
+	coclass IconHandler
+	{
+		[default] interface IIconHandler;
+	};
+};
+
+import "shobjidl.idl";

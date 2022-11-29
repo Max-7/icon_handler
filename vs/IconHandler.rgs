@@ -1,0 +1,15 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {c5488187-2b77-40c7-bb6a-4f0a0ca979d6} = s 'DLL IconHandler'
+		{
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{889a8069-3eb0-4a64-b297-282e95b70bf2}'
+			Version = s '1.0'
+		}
+	}
+}
