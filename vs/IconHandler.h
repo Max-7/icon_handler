@@ -30,20 +30,20 @@ public:
 	{
 	}
 
-DECLARE_REGISTRY_RESOURCEID(106)
+	DECLARE_REGISTRY_RESOURCEID(106)
 
 
-BEGIN_COM_MAP(CIconHandler)
-	COM_INTERFACE_ENTRY(IPersistFile)
-	COM_INTERFACE_ENTRY(IExtractIcon)
-	COM_INTERFACE_ENTRY(IShellIconOverlayIdentifier)
-END_COM_MAP()
+	BEGIN_COM_MAP(CIconHandler)
+		COM_INTERFACE_ENTRY(IPersistFile)
+		COM_INTERFACE_ENTRY(IExtractIcon)
+		COM_INTERFACE_ENTRY(IShellIconOverlayIdentifier)
+	END_COM_MAP()
 
 
 
 	DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-	HRESULT FinalConstruct()
+		HRESULT FinalConstruct()
 	{
 		return S_OK;
 	}
@@ -81,13 +81,13 @@ private:
 
 	virtual HRESULT __stdcall Extract(PCWSTR pszFile, UINT nIconIndex, HICON* phiconLarge, HICON* phiconSmall, UINT nIconSize) override;
 
-	SyncStatus m_status;
-	inline static WCHAR m_modulePath[MAX_PATH]{};
-
 	// Inherited via IShellIconOverlayIdentifier
 	virtual HRESULT __stdcall IsMemberOf(LPCWSTR pwszPath, DWORD dwAttrib) override;
 	virtual HRESULT __stdcall GetOverlayInfo(LPWSTR pwszIconFile, int cchMax, int* pIndex, DWORD* pdwFlags) override;
 	virtual HRESULT __stdcall GetPriority(int* pPriority) override;
+
+	SyncStatus m_status = SyncStatus::Unknown;
+	inline static WCHAR m_modulePath[MAX_PATH]{};
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(IconHandler), CIconHandler)

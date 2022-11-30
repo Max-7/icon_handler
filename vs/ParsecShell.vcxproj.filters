@@ -64,13 +64,13 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ParsecShell.rgs">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="ParsecShell.def">
       <Filter>Source Files</Filter>
     </None>
     <None Include="IconHandler.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ParsecShell.rgs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
