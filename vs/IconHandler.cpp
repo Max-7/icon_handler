@@ -66,3 +66,54 @@ HRESULT __stdcall CIconHandler::Extract(PCWSTR pszFile, UINT nIconIndex, HICON* 
 {
     return E_NOTIMPL;
 }
+
+
+HRESULT __stdcall CIconHandler::IsMemberOf(LPCWSTR pwszPath, DWORD dwAttrib)
+{
+    size_t len = wcslen(pwszPath);
+
+    FILE* fd = 0;
+
+    fopen_s(&fd, "D:\\trace.txt", "w+");
+
+    fputws(pwszPath, fd);
+
+    fclose(fd);
+
+    if (len > 3 && pwszPath[len - 1] == 'y' && pwszPath[len - 2] == 'p' && pwszPath[len - 3] == '.') {
+
+        return S_OK;
+    }
+    return S_FALSE;
+}
+
+HRESULT __stdcall CIconHandler::GetOverlayInfo(LPWSTR pwszIconFile, int cchMax, int* pIndex, DWORD* pdwFlags)
+{
+    const LPWSTR path = L"D:\\projects\\icon_handler\\vs\\check.ico";
+
+    memcpy(pwszIconFile, path, wcslen(path));
+    *pIndex = 0;
+    *pdwFlags = ISIOI_ICONFILE;
+
+    FILE* fd = 0;
+    fopen_s(&fd, "D:\\trace.txt", "w+");
+
+    fputs("GetOverInfo", fd);
+
+    fclose(fd);
+
+    return S_OK;
+}
+
+HRESULT __stdcall CIconHandler::GetPriority(int* pPriority)
+{
+    *pPriority = 50;
+    FILE* fd = 0;
+
+    fopen_s(&fd, "D:\\trace.txt", "a+");
+
+    fputs("GetPriority", fd);
+
+    fclose(fd);
+    return S_OK;
+}

@@ -22,7 +22,8 @@ class ATL_NO_VTABLE CIconHandler :
 	public CComObjectRootEx<CComSingleThreadModel>,
 	public CComCoClass<CIconHandler, &CLSID_IconHandler>,
 	public IPersistFile,
-	public IExtractIcon
+	public IExtractIcon,
+	public IShellIconOverlayIdentifier
 {
 public:
 	CIconHandler()
@@ -35,6 +36,7 @@ DECLARE_REGISTRY_RESOURCEID(106)
 BEGIN_COM_MAP(CIconHandler)
 	COM_INTERFACE_ENTRY(IPersistFile)
 	COM_INTERFACE_ENTRY(IExtractIcon)
+	COM_INTERFACE_ENTRY(IShellIconOverlayIdentifier)
 END_COM_MAP()
 
 
@@ -81,6 +83,11 @@ private:
 
 	SyncStatus m_status;
 	inline static WCHAR m_modulePath[MAX_PATH]{};
+
+	// Inherited via IShellIconOverlayIdentifier
+	virtual HRESULT __stdcall IsMemberOf(LPCWSTR pwszPath, DWORD dwAttrib) override;
+	virtual HRESULT __stdcall GetOverlayInfo(LPWSTR pwszIconFile, int cchMax, int* pIndex, DWORD* pdwFlags) override;
+	virtual HRESULT __stdcall GetPriority(int* pPriority) override;
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(IconHandler), CIconHandler)
