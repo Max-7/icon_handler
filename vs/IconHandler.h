@@ -21,8 +21,6 @@ using namespace ATL;
 class ATL_NO_VTABLE CIconHandler :
 	public CComObjectRootEx<CComSingleThreadModel>,
 	public CComCoClass<CIconHandler, &CLSID_IconHandler>,
-	public IPersistFile,
-	public IExtractIcon,
 	public IShellIconOverlayIdentifier
 {
 public:
@@ -34,8 +32,6 @@ public:
 
 
 	BEGIN_COM_MAP(CIconHandler)
-		COM_INTERFACE_ENTRY(IPersistFile)
-		COM_INTERFACE_ENTRY(IExtractIcon)
 		COM_INTERFACE_ENTRY(IShellIconOverlayIdentifier)
 	END_COM_MAP()
 
@@ -53,41 +49,10 @@ public:
 	}
 
 private:
-
-	enum class SyncStatus {
-		Unknown = 0,
-		Synced,
-		Syncing,
-	};
-
-	static SyncStatus GetStatus(PCWSTR path);
-
-	// Inherited via IPersistFile
-	virtual HRESULT __stdcall GetClassID(CLSID* pClassID) override;
-
-	virtual HRESULT __stdcall IsDirty(void) override;
-
-	virtual HRESULT __stdcall Load(LPCOLESTR pszFileName, DWORD dwMode) override;
-
-	virtual HRESULT __stdcall Save(LPCOLESTR pszFileName, BOOL fRemember) override;
-
-	virtual HRESULT __stdcall SaveCompleted(LPCOLESTR pszFileName) override;
-
-	virtual HRESULT __stdcall GetCurFile(LPOLESTR* ppszFileName) override;
-
-
-	// Inherited via IExtractIconW
-	virtual HRESULT __stdcall GetIconLocation(UINT uFlags, PWSTR pszIconFile, UINT cchMax, int* piIndex, UINT* pwFlags) override;
-
-	virtual HRESULT __stdcall Extract(PCWSTR pszFile, UINT nIconIndex, HICON* phiconLarge, HICON* phiconSmall, UINT nIconSize) override;
-
 	// Inherited via IShellIconOverlayIdentifier
 	virtual HRESULT __stdcall IsMemberOf(LPCWSTR pwszPath, DWORD dwAttrib) override;
 	virtual HRESULT __stdcall GetOverlayInfo(LPWSTR pwszIconFile, int cchMax, int* pIndex, DWORD* pdwFlags) override;
 	virtual HRESULT __stdcall GetPriority(int* pPriority) override;
-
-	SyncStatus m_status = SyncStatus::Unknown;
-	inline static WCHAR m_modulePath[MAX_PATH]{};
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(IconHandler), CIconHandler)
