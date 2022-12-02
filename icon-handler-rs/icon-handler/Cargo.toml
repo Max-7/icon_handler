@@ -1,0 +1,26 @@
+[package]
+name = "icon-handler"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+widestring = "1.0.2"
+lazy_static = "1.4.0"
+
+[dependencies.windows]
+version = "0.43.0"
+features = [
+    "Win32_Foundation",
+    "Win32_System_Memory",
+    "Win32_System_Com",
+    "Win32_UI_Shell",
+    "implement",
+]
+
+[build-dependencies]
+windows = "0.43.0"
