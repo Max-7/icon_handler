@@ -47,7 +47,7 @@ impl IShellIconOverlayIdentifier_Impl for ParsecIconHandler {
 }
 
 pub(crate) mod factory {
-    use std::sync::atomic::{AtomicIsize, Ordering, AtomicBool};
+    use std::sync::atomic::{AtomicIsize, Ordering};
 
     use windows::{
         core::{IUnknown, GUID, HRESULT},

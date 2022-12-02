@@ -1,6 +1,5 @@
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::Ordering;
 
-use lazy_static::lazy_static;
 use windows::{
     core::{GUID, HRESULT, PCWSTR},
     Win32::Foundation::{CLASS_E_CLASSNOTAVAILABLE, S_FALSE, S_OK},
@@ -44,12 +43,6 @@ pub unsafe extern "stdcall" fn DllGetClassObject(
         *ppv = std::ptr::null();
         CLASS_E_CLASSNOTAVAILABLE
     }
-}
-
-#[no_mangle]
-#[allow(non_snake_case)]
-pub extern "stdcall" fn DllCanUnloadNow() -> windows::core::HRESULT {
-    S_FALSE
 }
 
 #[no_mangle]
