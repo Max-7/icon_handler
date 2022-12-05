@@ -49,18 +49,15 @@ impl IShellIconOverlayIdentifier_Impl for ParsecIconHandler {
 pub(crate) mod factory {
     use std::sync::atomic::{AtomicIsize, Ordering};
 
+    use lazy_static::lazy_static;
     use windows::{
         core::{IUnknown, GUID, HRESULT},
         Win32::{
             Foundation::{CLASS_E_NOAGGREGATION, E_NOINTERFACE, E_OUTOFMEMORY},
             System::Memory::{GlobalAlloc, GMEM_FIXED},
-            UI::Shell::{
-                IShellIconOverlayIdentifier,
-                IShellIconOverlayIdentifier_Vtbl,
-            },
+            UI::Shell::{IShellIconOverlayIdentifier, IShellIconOverlayIdentifier_Vtbl},
         },
     };
-    use lazy_static::lazy_static;
 
     use super::ParsecIconHandler_Impl;
 
@@ -78,7 +75,7 @@ pub(crate) mod factory {
         create_instance,
         lock_server,
     };
-    
+
     lazy_static! {
         /// Atomic reference counter to track when the DLL can be freed in memory
         pub static ref OUTSTANDING_OBJECTS: AtomicIsize = AtomicIsize::new(0);
@@ -123,14 +120,17 @@ pub(crate) mod factory {
         pub count: u32, // count is a DWORD
     }
 
+    #[no_mangle]
     extern "system" fn add_ref(_this: *const std::ffi::c_void) -> u32 {
         1
     }
 
+    #[no_mangle]
     extern "system" fn release(_this: *const std::ffi::c_void) -> u32 {
         1
     }
 
+    #[no_mangle]
     pub unsafe extern "system" fn query_interface(
         this: *const IIconHandlerFactory,
         factory_guid: &GUID,
@@ -146,6 +146,7 @@ pub(crate) mod factory {
         }
     }
 
+    #[no_mangle]
     extern "system" fn lock_server(_this: *mut IIconHandlerFactory, flock: bool) -> HRESULT {
         if flock {
             DLL_LOCKED.fetch_add(1, Ordering::Relaxed);
@@ -156,6 +157,7 @@ pub(crate) mod factory {
         HRESULT(0) // No error
     }
 
+    #[no_mangle]
     unsafe extern "system" fn create_instance(
         _this: *mut IIconHandlerFactory,
         punk_outer: *mut IUnknown,

@@ -2,7 +2,7 @@ use std::sync::atomic::Ordering;
 
 use windows::{
     core::{GUID, HRESULT, PCWSTR},
-    Win32::Foundation::{CLASS_E_CLASSNOTAVAILABLE, S_FALSE, S_OK},
+    Win32::Foundation::{CLASS_E_CLASSNOTAVAILABLE, HINSTANCE, S_FALSE, S_OK},
 };
 
 #[cfg(not(windows))]
@@ -12,7 +12,7 @@ mod icon_handler;
 
 #[no_mangle]
 #[allow(non_snake_case)]
-pub extern "stdcall" fn DllCanUnloadNow() -> HRESULT {
+pub extern "system" fn DllCanUnloadNow() -> HRESULT {
     let outstanding_count = icon_handler::factory::OUTSTANDING_OBJECTS.load(Ordering::Relaxed);
     let locked_count = icon_handler::factory::DLL_LOCKED.load(Ordering::Relaxed);
 
@@ -25,7 +25,7 @@ pub extern "stdcall" fn DllCanUnloadNow() -> HRESULT {
 
 #[no_mangle]
 #[allow(non_snake_case)]
-pub unsafe extern "stdcall" fn DllGetClassObject(
+pub unsafe extern "system" fn DllGetClassObject(
     obj_guid: &GUID,
     factory_guid: &GUID,
     ppv: *mut *const std::ffi::c_void,
@@ -47,16 +47,26 @@ pub unsafe extern "stdcall" fn DllGetClassObject(
 
 #[no_mangle]
 #[allow(non_snake_case)]
-pub extern "stdcall" fn DllInstall(binstall: bool, pszCmdLine: PCWSTR) -> HRESULT {
-    if !pszCmdLine.is_null() {
-        todo!("Handle per user registration")
-    }
+pub extern "system" fn DllInstall(_binstall: bool, _pszCmdLine: PCWSTR) -> HRESULT {
+    // if !pszCmdLine.is_null() {
+    //     todo!("Handle per user registration")
+    // }
 
-    if binstall {
-        todo!("Handle server registration");
-    } else {
-        todo!("Handle server Unregistration");
-    }
+    // if binstall {
+    //     todo!("Handle server registration");
+    // } else {
+    //     todo!("Handle server Unregistration");
+    // }
 
     S_OK
+}
+
+#[no_mangle]
+#[allow(non_snake_case)]
+pub extern "system" fn DllMain(
+    _instance: HINSTANCE,
+    _reason: u32,
+    _reserved: *const std::ffi::c_void,
+) -> bool {
+    true
 }
