@@ -25,7 +25,7 @@ pub extern "system" fn DllCanUnloadNow() -> HRESULT {
 
 #[no_mangle]
 #[allow(non_snake_case)]
-pub unsafe extern "system" fn DllGetClassObject(
+pub extern "system" fn DllGetClassObject(
     obj_guid: &GUID,
     factory_guid: &GUID,
     ppv: *mut *const std::ffi::c_void,
@@ -33,15 +33,17 @@ pub unsafe extern "system" fn DllGetClassObject(
     let clsid_parsec_icon_overlay_identifier =
         GUID::from(icon_handler::CLSID_PARSEC_ICON_OVERLAY_IDENTIFIER);
 
-    if clsid_parsec_icon_overlay_identifier == *obj_guid {
-        icon_handler::factory::query_interface(
-            &icon_handler::factory::IICON_HANDLER_FACTORY,
-            factory_guid,
-            ppv,
-        )
-    } else {
-        *ppv = std::ptr::null();
-        CLASS_E_CLASSNOTAVAILABLE
+    unsafe {
+        if clsid_parsec_icon_overlay_identifier == *obj_guid {
+            icon_handler::factory::query_interface(
+                &icon_handler::factory::IICON_HANDLER_FACTORY,
+                factory_guid,
+                ppv,
+            )
+        } else {
+            *ppv = std::ptr::null();
+            CLASS_E_CLASSNOTAVAILABLE
+        }
     }
 }
 

@@ -1,0 +1,4 @@
+LIBRARY IIconHandler
+EXPORTS
+DllCanUnloadNow   PRIVATE
+DllGetClassObject PRIVATE
