@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParsecShell", "ParsecShell.vcxproj", "{8542AABB-8F05-45BA-BF3E-838D8EB8F94B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLLTester", "..\DLLTester\DLLTester.vcxproj", "{4D94188D-7AB7-4A8B-A33F-BBA3541AEB24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{8542AABB-8F05-45BA-BF3E-838D8EB8F94B}.Release|x64.Build.0 = Release|x64
 		{8542AABB-8F05-45BA-BF3E-838D8EB8F94B}.Release|x86.ActiveCfg = Release|Win32
 		{8542AABB-8F05-45BA-BF3E-838D8EB8F94B}.Release|x86.Build.0 = Release|Win32
+		{4D94188D-7AB7-4A8B-A33F-BBA3541AEB24}.Debug|x64.ActiveCfg = Debug|x64
+		{4D94188D-7AB7-4A8B-A33F-BBA3541AEB24}.Debug|x64.Build.0 = Debug|x64
+		{4D94188D-7AB7-4A8B-A33F-BBA3541AEB24}.Debug|x86.ActiveCfg = Debug|Win32
+		{4D94188D-7AB7-4A8B-A33F-BBA3541AEB24}.Debug|x86.Build.0 = Debug|Win32
+		{4D94188D-7AB7-4A8B-A33F-BBA3541AEB24}.Release|x64.ActiveCfg = Release|x64
+		{4D94188D-7AB7-4A8B-A33F-BBA3541AEB24}.Release|x64.Build.0 = Release|x64
+		{4D94188D-7AB7-4A8B-A33F-BBA3541AEB24}.Release|x86.ActiveCfg = Release|Win32
+		{4D94188D-7AB7-4A8B-A33F-BBA3541AEB24}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,6 +15,9 @@
 
 using namespace ATL;
 
+extern "C" {
+	__declspec(dllexport) const wchar_t* __stdcall _debug_icon_handler(LPCWSTR);
+}
 
 // CIconHandler
 
